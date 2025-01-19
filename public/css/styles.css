@@ -1,6 +1,139 @@
-/******* Change Box Model ***************/
-*,
-*:before,
-*:after {
-  box-sizing: border-box;
+body {
+  margin: 0;
+}
+
+#top-header {
+  margin-top: 20px;
+}
+
+header a {
+  text-decoration: none;
+  color: black;
+}
+
+span.siteName a {
+  font-size: 2rem;
+}
+
+#tools a {
+  float: right;
+  transform: translateY(-36px);
+  text-transform: uppercase;
+  font-size: 12px;
+}
+
+nav {
+  background-color: black;
+  color: white;
+  margin-top: 2rem;
+}
+
+nav ul, .hero ul {
+  display: flex;
+  list-style-type: none;
+  justify-content: space-evenly;
+  padding: 1rem 0;
+}
+
+main {
+  font-size: 14px;
+}
+
+h1 {
+  font-size: 1.15rem;
+}
+
+.hero {
+  position: relative;
+}
+
+.hero-img {
+  display: flex;
+  width: 80%;
+  margin: auto;
+}
+
+.hero h2 {
+  font-size: 1.1rem;
+}
+
+.call-to-action {
+  background-color: rgba(255, 255, 255, 0.8);
+  color: #4c96d7;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+}
+
+.call-to-action h2 {
+  margin: 0;
+}
+
+.call-to-action ul {
+  display: block;
+  padding: 0;
+  margin: 0 0 2px;
+}
+
+button {
+  padding: 0;
+  border: none;
+  width: 100px;
+  height: 30px;
+}
+
+button img {
+  width: 100%;
+}
+
+h2 {
+  font-size: 1.15rem;
+}
+
+.reviews {
+  margin: 25px 0;
+}
+
+.reviews h2 {
+  margin-bottom: 8px;
+}
+
+.reviews ul {
+  padding-left: 18px;
+  line-height: 1.65rem;
+}
+
+.upgrades {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+}
+
+.upgrades h2 {
+  grid-column: 1/3;
+}
+
+.upgrades img {
+  display: flex;
+  width: 60px;
+  height: auto;
+  margin: auto;
+}
+
+.upgrade-img {
+  display: flex;
+  background-color: #4c96d7;
+  height: 80px;
+  width: 95%;
+  border: 1px solid black;
+  margin: auto;
+}
+
+.upgrades a {
+  text-align: center;
+}
+
+.capacitor, .decal, .bumper-sticker, .hub-cap {
+  margin-bottom: 1.5rem;
+  text-align: center;
 }
