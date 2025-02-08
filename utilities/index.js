@@ -71,7 +71,7 @@ Util.buildCarDetails = async function(data) {
       details += '</h1>'
       details += '<img src="' + vehicle.inv_image
       + '" alt="Image of '+ vehicle.inv_make + ' ' + vehicle.inv_model
-      + ' on CSE Motors" /></a>'
+      + ' on CSE Motors">'
       details += '<div class=vehicle-summary>'
       details += '<h2>'
       details += vehicle.inv_make + ' ' + vehicle.inv_model + ' Details'
