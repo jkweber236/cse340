@@ -6,6 +6,16 @@
 
 <%- messages() %>
 
+<% if (errors) { %>
+   <ul class="notice">
+   <% errors.array().forEach(error => { %>
+      <% if (error.msg !== "Invalid value") { %>
+         <li><%= error.msg %></li>
+      <% } %>
+   <% }) %>
+   </ul>
+<% } %>
+
 <form class="register" action="/account/register" method="post">
    <label for="account_firstname">First name:</label>
    <input type="text" id="account_firstname" name="account_firstname" required><br>

@@ -274,11 +274,15 @@ Login/Registration Form
 }
 
 input:required:invalid, input:focus:invalid {
-  background-color: #f2d798;
+  background-color: #f4ddad;
 }
 
 input:required:valid {
   background-color: lightgreen;
+}
+
+.notice {
+  color: rgb(190, 0, 0);
 }
 
 @media (min-width: 800px) { 
