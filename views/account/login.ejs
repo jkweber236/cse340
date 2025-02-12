@@ -11,7 +11,8 @@
    <input type="email" id="account_email" name="account_email" required><br>
    
    <label for="account_password">Password:</label>
-   <input type="password" id="account_password" name="account_password" required><br>
+   <div class="password-requirements">There must be at least 12 characters, one must be a number, one must be a lowercase letter, one must be a capital letter, and one must be a non-alphanumeric character.</div>
+   <input type="password" id="account_password" name="account_password" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$"><br>
    
    <button type="submit" >Login</button>
    <p>No account? <a href="/account/register">Sign-up</a></p>

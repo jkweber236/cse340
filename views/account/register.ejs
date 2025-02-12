@@ -7,17 +7,18 @@
 <%- messages() %>
 
 <form class="register" action="/account/register" method="post">
-   <label for="account_firstname">First name</label>
+   <label for="account_firstname">First name:</label>
    <input type="text" id="account_firstname" name="account_firstname" required><br>
    
-   <label for="account_lastname">Last name</label>
+   <label for="account_lastname">Last name:</label>
    <input type="text" id="account_lastname" name="account_lastname" required><br>
    
-   <label for="account_email">Email address</label>
+   <label for="account_email">Email address:</label>
    <input type="email" id="account_email" name="account_email" required><br>
    
-   <label for="account_password">Password</label>
-   <input type="password" id="account_password" name="account_password" required pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{12,}$"><br>
+   <label for="account_password">Password:</label>
+   <div class="password-requirements">There must be at least 12 characters, one must be a number, one must be a lowercase letter, one must be a capital letter, and one must be a non-alphanumeric character.</div>
+   <input type="password" id="account_password" name="account_password" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$"><br>
    
    <button type="submit">Register</button>
 </form>
