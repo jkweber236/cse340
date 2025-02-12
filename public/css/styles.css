@@ -239,9 +239,9 @@ Error link and page
 }
 
 /*******************
-Login Form
+Login/Registration Form
 *******************/
-.login {
+.login, .register {
   background-color: #34445b;
   color: white;
   padding: 2rem;
@@ -258,21 +258,20 @@ Login Form
   color: white;
 }
 
-.login input {
+.login input, .register input {
   border-radius: 4px;
   padding: 0.5rem;
 }
 
-.login button {
+.login button, .register button {
   margin: auto;
-  padding: 0.25rem 1.25rem;
+  padding: 0.4rem 1.25rem;
   border-radius: 20px;
 }
 
 .login p {
   text-align: center;
 }
-
 
 @media (min-width: 800px) { 
   html {
@@ -406,9 +405,9 @@ Login Form
   }
 
   /**********************
-  Login form
+  Login/Register form
   **********************/
-  .login {
+  .login, .register {
     grid-column: 1/3;
   }
 
