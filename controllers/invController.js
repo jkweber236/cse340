@@ -34,4 +34,32 @@ invCont.buildCarDetailsById = async function (req, res, next) {
    })
 }
 
+invCont.displayManagement = async function(req, res) {
+   let nav = await utilities.getNav();
+   let messages = req.flash("notice");
+   res.render("./inventory/management", {
+      title: "Vehicle Management",
+      nav,
+      errors: null,
+   });
+};
+
+invCont.addClassification = async function(req, res) {
+   let nav = await utilities.getNav();
+   res.render("./inventory/add-classification", {
+      title: 'Add New Classification',
+      nav,
+      errors: null,
+   });
+};
+
+invCont.addInventory = async function(req, res) {
+   let nav = await utilities.getNav();
+   res.render("./inventory/add-inventory", {
+      title: 'Add New Inventory',
+      nav,
+      errors: null,
+   });
+};
+
 module.exports = invCont

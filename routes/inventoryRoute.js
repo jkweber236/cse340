@@ -8,4 +8,8 @@ const utilities = require("../utilities/index")
 router.get("/type/:classificationId", utilities.handleErrors(invController.buildByClassificationId));
 router.get("/detail/:invId", utilities.handleErrors(invController.buildCarDetailsById));
 
+router.get('/', utilities.handleErrors(invController.displayManagement));
+router.get('/add-classification', utilities.handleErrors(invController.addClassification));
+router.get('/add-inventory', utilities.handleErrors(invController.addInventory));
+
 module.exports = router;

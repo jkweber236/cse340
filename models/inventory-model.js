@@ -41,4 +41,5 @@ async function getCarDetailsById(inv_id) {
   }
 }
 
+
 module.exports = {getClassifications, getInventoryByClassificationId, getCarDetailsById};
