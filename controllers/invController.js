@@ -56,13 +56,13 @@ invCont.buildAddClassification = async function (req, res, next) {
 invCont.addClassification = async function(req, res) {
    const classificationName = req.body.classification_name
 
-   const addResult = await invModel.insertClassification(
+   const addClassResult = await invModel.insertClassification(
       classificationName
    )
 
-   let nav = await utilities.getNav();
+   // let nav = await utilities.getNav();
 
-   if (addResult) {
+   if (addClassResult) {
       req.flash(
          "notice", `The ${classificationName} classification was successfully added.`
       )
@@ -73,16 +73,49 @@ invCont.addClassification = async function(req, res) {
    }
 };
 
-invCont.addInventory = async function(req, res) {
-   let nav = await utilities.getNav();
-   let classificationList = await utilities.buildClassificationList();
-
+invCont.buildAddInventory = async function (req, res, next) {
+   let nav = await utilities.getNav()
+   let classificationList = await utilities.buildClassificationList(req.body.classification_id);
    res.render("./inventory/add-inventory", {
       title: 'Add New Inventory',
       nav,
-      classificationList,
       errors: null,
+      classificationList: classificationList,
    });
+}
+
+invCont.addInventory = async function(req, res) {
+
+   const inventoryData = {
+      classification_id: req.body.classification_id,
+      inv_make: req.body.inv_make,
+      inv_model: req.body.inv_model,
+      inv_year: req.body.inv_year,
+      inv_description: req.body.inv_description,
+      inv_image: req.body.inv_image,
+      inv_thumbnail: req.body.inv_thumbnail,
+      inv_price: req.body.inv_price,
+      inv_miles: req.body.inv_miles,
+      inv_color: req.body.inv_color
+   };
+
+   const addInvResult = await invModel.insertInventory(inventoryData);
+
+   if (addInvResult) {
+      req.flash(
+         "notice", `The ${inventoryData.inv_make} ${inventoryData.inv_model} was successfully added.`
+      )
+      return res.redirect('/inv')
+   } else {
+      req.flash("notice", `Failed to add ${inventoryData.inv_make} ${inventoryData.inv_model} to inventory`)
+      return res.render("./inventory/add-inventory", {
+         title: "Add New Inventory",
+         nav, 
+         errors: req.validationErrors(),
+         classificationList: classificationList, 
+         locals: req.body
+      })
+   }
 };
 
 module.exports = invCont

@@ -32,4 +32,95 @@ validate.checkClassification = async (req, res, next) => {
    next()
 }
 
+validate.inventoryRules = () => {
+   return [
+      body("classification_id")
+         .trim()
+         .escape()
+         .notEmpty()
+         .isInt()
+         .withMessage("Please provide a valid classification."),
+
+      body("inv_make")
+         .trim()
+         .escape()
+         .notEmpty()
+         .isLength({ min: 3})
+         .withMessage("Please provide a valid make."),
+
+      body("inv_model")
+         .trim()
+         .escape()
+         .notEmpty()
+         .isLength({ min: 3})
+         .withMessage("Please provide a valid model."),
+
+      body("inv_year")
+         .trim()
+         .escape()
+         .notEmpty()
+         .isLength({ min: 4, max: 4})
+         .isNumeric()
+         .withMessage("Please provide a valid year."),
+
+      body("inv_description")
+         .trim()
+         .escape()
+         .notEmpty()
+         .withMessage("Please provide a valid description."),
+
+      body("inv_image")
+         .trim()
+         .escape()
+         .notEmpty()
+         .withMessage("Please provide a valid image path."),
+
+      body("inv_thumbnail")
+         .trim()
+         .escape()
+         .notEmpty()
+         .withMessage("Please provide a valid thumbnail path."),
+
+      body("inv_price")
+         .trim()
+         .escape()
+         .notEmpty()
+         .matches(/^\d+(\.\d{1,2})?$/)
+         .withMessage("Please provide a valid price."),
+
+      body("inv_miles")
+         .trim()
+         .escape()
+         .notEmpty()
+         .isInt({ min: 0 })
+         .withMessage("Please provide a valid mileage."),
+
+      body("inv_color")
+         .trim()
+         .escape()
+         .notEmpty()
+         .isString()
+         .withMessage("Please provide a valid color."),
+   ]
+}
+
+validate.checkInventory = async (req, res, next) => {
+
+   let errors = []
+   errors = validationResult(req)
+   if (!errors.isEmpty()) {
+      let nav = await utilities.getNav()
+      let classificationList = await utilities.buildClassificationList(req.body.classification_id);
+      console.log("Errors occurred.")
+      return res.render("./inventory/add-inventory", {
+         title: "Add New Inventory",
+         nav,
+         errors,
+         classificationList,
+         locals: req.body
+      })
+   }
+   next()
+}
+
 module.exports = validate
