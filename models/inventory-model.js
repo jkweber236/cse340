@@ -41,5 +41,19 @@ async function getCarDetailsById(inv_id) {
   }
 }
 
+async function insertClassification(classificationName) {
+  try {
+    const query = `
+      INSERT INTO public.classification(classification_name)
+      VALUES ($1)
+      RETURNING *;`
 
-module.exports = {getClassifications, getInventoryByClassificationId, getCarDetailsById};
+      const values = [classificationName];
+      return await pool.query(query, values);
+  } catch (error) {
+    console.error("insertClassification error " + error)
+  }
+}
+
+
+module.exports = {getClassifications, getInventoryByClassificationId, getCarDetailsById, insertClassification };

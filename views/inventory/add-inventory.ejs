@@ -3,3 +3,39 @@
    <% } else {
       res.redirect('/')
 } %>
+
+
+<form class="inventory-form" action="/inv/add-inventory" method="POST">
+   <label for="classification_id">Classification</label>
+   <%- classificationList %>
+
+   <input type="?????" id="classification_id" name="classification_id" required>
+
+   <label for="inv_make">Make</label>
+   <input type="text" id="inv_make" name="inv_make" required placeholder="Min of 3 characters">
+
+   <label for="inv_model">Model</label>
+   <input type="text" id="inv_model" name="inv_model" required placeholder="Min of 3 characters">
+
+   <label for="inv_year">Year</label>
+   <input type="number" id="inv_year" name="inv_year" required placeholder="4-digit year">
+
+   <label for="inv_description">Description</label>
+   <textarea id="inv_description" name="inv_description required"></textarea>
+
+   <label for="inv_image">Image Path</label>
+   <input type="text" id="inv_image" name="inv_image" required placeholder="/images/vehicles/no-image.png">
+
+   <label for="inv_thumbnail">Thumbnail Path</label>
+   <input type="text" id="inv_thumbnail" name="inv_thumbnail" required placeholder="/images/vehicles/no-image.png">
+
+   <label for="inv_price">Price</label>
+   <input type="number" id="inv_price" name="inv_price" step="0.01" required placeholder="decimal or integer">
+
+   <label for="inv_miles">Miles</label>
+   <input type="number" id="inv_miles" name="inv_miles" required placeholder="digits only">
+
+   <label for="inv_color">Color</label>
+   <input type="text" id="inv_color" name="inv_color" required>
+   <button type="submit">Add Vehicle</button>
+</form>

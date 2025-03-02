@@ -44,20 +44,43 @@ invCont.displayManagement = async function(req, res) {
    });
 };
 
-invCont.addClassification = async function(req, res) {
-   let nav = await utilities.getNav();
+invCont.buildAddClassification = async function (req, res, next) {
+   let nav = await utilities.getNav()
    res.render("./inventory/add-classification", {
       title: 'Add New Classification',
       nav,
       errors: null,
    });
+}
+
+invCont.addClassification = async function(req, res) {
+   const classificationName = req.body.classification_name
+
+   const addResult = await invModel.insertClassification(
+      classificationName
+   )
+
+   let nav = await utilities.getNav();
+
+   if (addResult) {
+      req.flash(
+         "notice", `The ${classificationName} classification was successfully added.`
+      )
+      return res.redirect('/inv')
+   } else {
+      req.flash("notice", "Provide a correct classification name.")
+      res.redirect('/inv/add-classification');
+   }
 };
 
 invCont.addInventory = async function(req, res) {
    let nav = await utilities.getNav();
+   let classificationList = await utilities.buildClassificationList();
+
    res.render("./inventory/add-inventory", {
       title: 'Add New Inventory',
       nav,
+      classificationList,
       errors: null,
    });
 };
