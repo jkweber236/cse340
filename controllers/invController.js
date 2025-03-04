@@ -60,8 +60,6 @@ invCont.addClassification = async function(req, res) {
       classificationName
    )
 
-   // let nav = await utilities.getNav();
-
    if (addClassResult) {
       req.flash(
          "notice", `The ${classificationName} classification was successfully added.`
