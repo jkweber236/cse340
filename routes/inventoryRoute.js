@@ -32,4 +32,10 @@ router.post(
 // Route to build the edit inventory view
 router.get('/edit/:inv_id', utilities.handleErrors(invController.editInventoryView))
 
+router.post(
+   "/update/", 
+   validate.inventoryRules(),
+   validate.checkUpdateData,
+   utilities.handleErrors(invController.updateInventory))
+
 module.exports = router;
