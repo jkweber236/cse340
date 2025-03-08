@@ -9,7 +9,7 @@ const validate = require('../utilities/management-validation')
 router.get("/type/:classificationId", utilities.handleErrors(invController.buildByClassificationId));
 router.get("/detail/:invId", utilities.handleErrors(invController.buildCarDetailsById));
 
-router.get('/', utilities.handleErrors(invController.displayManagement));
+router.get('/', utilities.handleErrors(invController.buildManagement));
 
 router.get('/add-classification', utilities.handleErrors(invController.buildAddClassification))
 router.post(
@@ -18,6 +18,8 @@ router.post(
    validate.checkClassification,
    utilities.handleErrors(invController.addClassification)
 )
+
+router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON))
 
 router.get('/add-inventory', utilities.handleErrors(invController.buildAddInventory));
 router.post(
