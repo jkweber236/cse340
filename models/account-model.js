@@ -39,4 +39,25 @@ async function getAccountByEmail (account_email) {
    }
 }
 
+/* ***************************
+ *  Update Inventory Data
+ * ************************** */
+async function updatePassword(
+   account_password,
+   account_id
+) {
+   try {
+      const sql =
+       "UPDATE public.account SET account_password = $1 WHERE account_id = $2 RETURNING *"
+      const data = await pool.query(sql, [
+         account_password,
+         account_id
+      ])
+      return data.rows[0]
+   } catch (error) {
+      console.error("model error: " + error)
+   }
+}
+
+
 module.exports = { registerAccount, checkExistingEmail, getAccountByEmail };

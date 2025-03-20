@@ -30,4 +30,14 @@ router.post(
    utilities.handleErrors(accountController.accountLogin)
 )
 
+router.get(
+   '/edit/:account_id',
+   utilities.handleErrors(accountController.buildAccountUpdate)
+)
+
+router.post(
+   '/update/',
+   utilities.handleErrors(accountController.updateAccount)
+)
+
 module.exports = router;

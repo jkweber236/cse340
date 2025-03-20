@@ -130,4 +130,34 @@ async function accountLogin(req, res) {
    }
 }
 
-module.exports = { buildLogin, buildRegister, registerAccount, accountLogin, buildAccountManagement }
+async function buildAccountUpdate(req, res) {
+   const account_email = res.locals.accountData.account_email
+   let nav = await utilities.getNav()
+   const data = await accountModel.getAccountByEmail(account_email)
+   const accountData = data
+   res.render("./account/update", {
+      title: "Edit Account",
+      nav,
+      errors: null,
+      account_id: accountData.account_id,
+      account_firstname: accountData.account_firstname,
+      account_lastname: accountData.account_lastname,
+      account_email: accountData.account_email
+   })
+}
+
+async function updateAccount(req, res) {
+
+}
+
+async function changePassword(req, res) {
+   let hashedPassword
+   try {
+      hashedPassword = await bcrypt.hashSync(account_password, 10)
+   } catch (error) {
+      req.flash("notice", "Password update failed. Please try again.")
+      return res.redirect("/account/update")
+   }
+}
+
+module.exports = { buildLogin, buildRegister, registerAccount, accountLogin, buildAccountManagement, buildAccountUpdate }
