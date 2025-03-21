@@ -147,17 +147,90 @@ async function buildAccountUpdate(req, res) {
 }
 
 async function updateAccount(req, res) {
+   let nav = await utilities.getNav()
+   const { account_firstname, account_lastname, account_email, account_id } = req.body
 
+   const updateResult = await accountModel.updateAccountData(
+      account_firstname,
+      account_lastname,
+      account_email,
+      account_id
+   )
+
+   if (updateResult) {
+      res.locals.accountData = {
+         ...res.locals.accountData,
+         account_firstname: updateResult.account_firstname,
+         account_lastname: updateResult.account_lastname,
+         account_email: updateResult.account_email,
+      };
+      req.flash(
+         "notice",
+         `Congratulations, your information has been updated.`
+      )
+      res.status(200).render("account/management", {
+         title: "Account Management",
+         nav,
+         errors: null,
+      })
+   } else {
+      req.flash("notice", "Update failed. Please try again.")
+      res.status(500).render("account/update", {
+         title: "Account Management",
+         nav,
+         errors: null,
+         account_firstname: updateResult.account_firstname,
+         account_lastname: updateResult.account_lastname,
+         account_email: updateResult.account_email,
+         account_id: updateResult.account_id,
+      })
+   }
 }
 
 async function changePassword(req, res) {
+   let nav = await utilities.getNav()
+   const { account_password, account_id } = req.body
    let hashedPassword
    try {
+      
       hashedPassword = await bcrypt.hashSync(account_password, 10)
    } catch (error) {
       req.flash("notice", "Password update failed. Please try again.")
       return res.redirect("/account/update")
    }
+
+   const updateResult = await accountModel.updatePassword(
+      hashedPassword,
+      account_id
+   )
+
+   if (updateResult) {
+      res.locals.accountData = {
+         ...res.locals.accountData,
+         account_password: updateResult.account_password,
+      }
+      req.flash(
+         "notice",
+         `Congratulations, your password has been updated.`
+      )
+      res.status(200).render("account/management", {
+         title: "Account Management",
+         nav,
+         errors: null,
+      })
+   } else {
+      req.flash("notice", "Password update failed. Please try again.")
+      res.status(500).render("account/update", {
+         title: "Account Management",
+         nav,
+         errors: null,
+         account_firstname: res.locals.accountData.account_firstname,
+         account_lastname: res.locals.accountData.account_lastname,
+         account_email: res.locals.accountData.account_email,
+         accountPassword: updateResult.account_password,
+         account_id: updateResult.account_id,
+      })
+   }
 }
 
-module.exports = { buildLogin, buildRegister, registerAccount, accountLogin, buildAccountManagement, buildAccountUpdate }
+module.exports = { buildLogin, buildRegister, registerAccount, accountLogin, buildAccountManagement, buildAccountUpdate, updateAccount, changePassword }

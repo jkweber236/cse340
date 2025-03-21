@@ -3,6 +3,7 @@ const router = new express.Router()
 const utilities = require("../utilities/index")
 const regValidate = require('../utilities/account-validation')
 const loginValidate = require('../utilities/account-validation')
+const updateValidate = require('../utilities/account-validation')
 const accountController = require("../controllers/accountController")
 
 // Build login
@@ -36,8 +37,18 @@ router.get(
 )
 
 router.post(
-   '/update/',
+   '/update-account/',
+   updateValidate.updateRules(),
+   updateValidate.checkUpdateData,
    utilities.handleErrors(accountController.updateAccount)
 )
+
+router.post(
+   '/update-password/',
+   updateValidate.updatePasswordRules(),
+   updateValidate.checkPasswordUpdate,
+   utilities.handleErrors(accountController.changePassword)
+)
+
 
 module.exports = router;
