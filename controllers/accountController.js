@@ -133,8 +133,7 @@ async function accountLogin(req, res) {
 async function buildAccountUpdate(req, res) {
    const account_email = res.locals.accountData.account_email
    let nav = await utilities.getNav()
-   const data = await accountModel.getAccountByEmail(account_email)
-   const accountData = data
+   const accountData = await accountModel.getAccountByEmail(account_email)
    res.render("./account/update", {
       title: "Edit Account",
       nav,
@@ -176,7 +175,7 @@ async function updateAccount(req, res) {
    } else {
       req.flash("notice", "Update failed. Please try again.")
       res.status(500).render("account/update", {
-         title: "Account Management",
+         title: "Edit Account",
          nav,
          errors: null,
          account_firstname: updateResult.account_firstname,
@@ -221,7 +220,7 @@ async function changePassword(req, res) {
    } else {
       req.flash("notice", "Password update failed. Please try again.")
       res.status(500).render("account/update", {
-         title: "Account Management",
+         title: "Edit Account",
          nav,
          errors: null,
          account_firstname: res.locals.accountData.account_firstname,
