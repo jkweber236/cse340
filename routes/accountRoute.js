@@ -31,6 +31,8 @@ router.post(
    utilities.handleErrors(accountController.accountLogin)
 )
 
+router.get('/logout', utilities.handleErrors(accountController.logout));
+
 router.get(
    '/edit/:account_id',
    utilities.handleErrors(accountController.buildAccountUpdate)

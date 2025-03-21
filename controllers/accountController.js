@@ -232,4 +232,13 @@ async function changePassword(req, res) {
    }
 }
 
-module.exports = { buildLogin, buildRegister, registerAccount, accountLogin, buildAccountManagement, buildAccountUpdate, updateAccount, changePassword }
+
+/**************************************
+ * Process logout request
+**************************************/
+async function logout(req, res, next) {
+   res.clearCookie("jwt")
+   return res.redirect("/")
+}
+
+module.exports = { buildLogin, buildRegister, registerAccount, accountLogin, buildAccountManagement, buildAccountUpdate, updateAccount, changePassword, logout }
