@@ -131,14 +131,14 @@ async function accountLogin(req, res) {
 }
 
 async function buildAccountUpdate(req, res) {
-   const account_email = res.locals.accountData.account_email
+   const account_id = res.locals.accountData.account_id
    let nav = await utilities.getNav()
-   const accountData = await accountModel.getAccountByEmail(account_email)
+   const accountData = await accountModel.getAccountById(account_id)
    res.render("./account/update", {
       title: "Edit Account",
       nav,
       errors: null,
-      account_id: accountData.account_id,
+      account_id: account_id,
       account_firstname: accountData.account_firstname,
       account_lastname: accountData.account_lastname,
       account_email: accountData.account_email
