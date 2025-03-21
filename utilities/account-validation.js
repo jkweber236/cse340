@@ -220,7 +220,7 @@ validate.checkPasswordUpdate = async (req, res, next) => {
       let nav = await utilities.getNav()
       res.render("account/update", {
          errors,
-         title: "Account Management",
+         title: "Edit Account",
          nav,
          account_firstname: res.locals.accountData.account_firstname,
          account_lastname: res.locals.accountData.account_lastname,

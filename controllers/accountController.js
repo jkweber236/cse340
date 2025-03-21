@@ -70,7 +70,7 @@ async function registerAccount(req, res) {
 
    if (regResult) {
       req.flash(
-         "notice",
+         "success",
          `Congratulations, you\'re registered ${account_firstname}. Please log in.`
       )
       res.status(201).render("account/login", {
@@ -164,7 +164,7 @@ async function updateAccount(req, res) {
          account_email: updateResult.account_email,
       };
       req.flash(
-         "notice",
+         "success",
          `Congratulations, your information has been updated.`
       )
       res.status(200).render("account/management", {
@@ -209,7 +209,7 @@ async function changePassword(req, res) {
          account_password: updateResult.account_password,
       }
       req.flash(
-         "notice",
+         "success",
          `Congratulations, your password has been updated.`
       )
       res.status(200).render("account/management", {

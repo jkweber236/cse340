@@ -1,5 +1,5 @@
 <% if (title) { %>
-   <h1><%= title %></h1>
+   <h1 class="management-title"><%= title %></h1>
    <% } else {
       res.redirect('/')
 } %>
@@ -16,17 +16,19 @@
    </ul>
 <% } %>
 
-<ul class="management-links">
-   <li><a href="/inv/add-classification">Add New Classification</a></li>
-   <li><a href="/inv/add-inventory">Add New Inventory</a></li>
-</ul>
+<div class="vehicle-management">
+   <ul class="management-links">
+      <li><a href="/inv/add-classification">Add New Classification</a></li>
+      <li><a href="/inv/add-inventory">Add New Inventory</a></li>
+   </ul>
 
-<h2>Manage Inventory</h2>
-<p>Select a classification from the list to see the items belonging to the classification.</p>
+   <h2>Manage Inventory</h2>
+   <p>Select a classification from the list to see the items belonging to the classification.</p>
 
-<%- classificationSelect %>
+   <%- classificationSelect %>
 
-<table id="inventoryDisplay"></table>
-<noscript>JavaScript must be enabled to use this page.</noscript>
+   <table id="inventoryDisplay"></table>
+   <noscript>JavaScript must be enabled to use this page.</noscript>
 
-<script src="../../js/inventory.js"></script>
+   <script src="../../js/inventory.js"></script>
+</div>
