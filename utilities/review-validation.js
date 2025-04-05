@@ -13,7 +13,6 @@ validate.reviewRules = () => {
          .escape()
          .isLength({ min: 10})
          .withMessage("Provide review text of at least 10 characters.")
-         .escape()
    ]
 }
 
