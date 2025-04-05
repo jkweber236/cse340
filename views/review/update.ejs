@@ -16,11 +16,11 @@
    <form class="edit-review-form" action="/review/update" method="post">
       <p>ALL FIELDS ARE REQUIRED.</p>
       <div class="form-content">
-         <label for="review_date">Review Date</label></br>
-         <input type="text" id="review_date" name="review_date" required readonly value="<%= locals.review_date %>"></br>
+         <label for="review_date">Review Date</label><br/>
+         <input type="text" id="review_date" name="review_date" required readonly value="<%= locals.review_date %>"><br/>
 
-         <label for="review_text">Review Text</label></br>
-         <textarea id="review_text" name="review_text" required minlength="10"><%= locals.review_text %></textarea></br>
+         <label for="review_text">Review Text</label><br/>
+         <textarea id="review_text" name="review_text" required minlength="10"><%= locals.review_text %></textarea><br/>
 
          <button type="submit">Update</button>
 
