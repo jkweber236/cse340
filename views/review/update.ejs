@@ -19,7 +19,7 @@
       <input type="text" id="review_date" name="review_date" required readonly value="<%= locals.review_date %>">
 
       <label for="review_text">Review Text</label>
-      <input type="text" id="review-text" name="review_text" required value="<%= locals.review_text %>">
+      <input type="text" id="review-text" name="review_text" required minlength="10" value="<%= locals.review_text %>">
 
       <button type="submit">Update</button>
 
