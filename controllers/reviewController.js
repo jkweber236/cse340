@@ -114,22 +114,4 @@ reviewCont.updateReview = async function(req, res, next) {
    }
 };
 
-// reviewCont.getUserReviews = async function (req, res, next) {
-//    try {
-//       const account_id = res.locals.accountData.account_id 
-//       const reviews = await reviewModel.getReviewsByAccountId(account_id);  
-//       const nav = await utilities.getNav();
-
-//       res.render("account", {
-//          title: "Your Account",
-//          nav,
-//          reviews: reviews,  
-//          errors: null
-//       });
-//    } catch (error) {
-//       req.flash("error", "Unable to retrieve reviews.");
-//       res.redirect("/account");
-//    }
-// }
-
 module.exports = reviewCont 
