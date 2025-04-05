@@ -78,7 +78,7 @@ async function getReviewsByAccountId(account_id) {
 }
 
 /* ***************************
- *  Delete Inventory Item
+ *  Delete Review
  * ************************** */
 async function deleteReview( review_id ) {
    try {
@@ -90,4 +90,19 @@ async function deleteReview( review_id ) {
    }
 }
 
-module.exports = { addReview, getReviewsByInvId, getReviewById, deleteReview, getReviewsByAccountId }
+/* ***************************
+ *  Update Review
+ * ************************** */
+async function updateReview(review_id, review_text) {
+   try {
+      const sql = 
+         "UPDATE review SET review_text = $1 WHERE review_id = $2 RETURNING *";
+      
+      const data = await pool.query(sql, [review_text, review_id]);
+      return data.rows[0]; 
+   } catch (error) {
+      console.error("updateReview model " + error);
+   }
+}
+
+module.exports = { addReview, getReviewsByInvId, getReviewById, deleteReview, getReviewsByAccountId, updateReview }

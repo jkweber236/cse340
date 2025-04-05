@@ -54,7 +54,6 @@ reviewCont.buildReviewDelete = async function (req, res, next) {
 }
 
 reviewCont.deleteReview = async function(req, res, next) {
-   let nav = await utilities.getNav()
    const review_id = req.body.review_id;
 
    const deleteResult = await reviewModel.deleteReview(review_id)
@@ -64,26 +63,73 @@ reviewCont.deleteReview = async function(req, res, next) {
       res.redirect("/account/")
    } else {
       req.flash("notice", "Review deletion failed.")
-      res.status(500).redirect("/account/")
+      res.status(500).redirect("/")
    }
 }
 
-reviewCont.getUserReviews = async function (req, res, next) {
+reviewCont.buildReviewUpdate = async function(req, res, next) {
+   const review_id = req.params.review_id;
+   const review = await reviewModel.getReviewById(review_id)
+   const reviewData = Array.isArray(review) ? review[0] : review;
+   const inv_id = reviewData.inv_id;
+   const account_id = reviewData.account_id;
+   const carDetails = await invModel.getCarDetailsById(inv_id);
+   const carData = carDetails[0];
+   const carTitle = `${carData.inv_year} ${carData.inv_make} ${carData.inv_model}`;
+   const review_date = new Date(reviewData.review_date);
+   const formattedDate = new Intl.DateTimeFormat('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: '2-digit'
+   }).format(review_date);
+   let nav = await utilities.getNav()
+   res.render("./review/update", {
+      title: `Edit ${carTitle} Review`,
+      nav,
+      errors: null,
+      review_text: reviewData.review_text,  
+      review_date: formattedDate,  
+      inv_id: reviewData.inv_id,  
+      review_id: reviewData.review_id,
+      account_id: account_id
+   })
+}
+
+reviewCont.updateReview = async function(req, res, next) {
+   const { review_id, review_text } = req.body; 
+
    try {
-      const account_id = res.locals.accountData.account_id 
-      const reviews = await reviewModel.getReviewsByAccountId(account_id);  
-      const nav = await utilities.getNav();
+      const updatedReview = await reviewModel.updateReview(review_id, review_text);
 
-      res.render("account", {
-         title: "Your Account",
-         nav,
-         reviews: reviews,  
-         errors: null
-      });
+      if (updatedReview) {
+         req.flash("success", "Review updated successfully.");
+         res.redirect(`/account`); 
+      } else {
+         req.flash("notice", "Review update failed.");
+         res.redirect(`/review/edit/${review_id}`); 
+      }
    } catch (error) {
-      req.flash("error", "Unable to retrieve reviews.");
-      res.redirect("/account");
+      console.error("Error updating review: ", error);
+      next(error);
    }
-}
+};
+
+// reviewCont.getUserReviews = async function (req, res, next) {
+//    try {
+//       const account_id = res.locals.accountData.account_id 
+//       const reviews = await reviewModel.getReviewsByAccountId(account_id);  
+//       const nav = await utilities.getNav();
+
+//       res.render("account", {
+//          title: "Your Account",
+//          nav,
+//          reviews: reviews,  
+//          errors: null
+//       });
+//    } catch (error) {
+//       req.flash("error", "Unable to retrieve reviews.");
+//       res.redirect("/account");
+//    }
+// }
 
 module.exports = reviewCont 

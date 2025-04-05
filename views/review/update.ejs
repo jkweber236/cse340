@@ -1,0 +1,33 @@
+<% if (title) { %>
+   <h1><%= title %></h1>
+
+   <%- messages() %>
+
+   <% if (errors) { %>
+      <ul class="notice">
+      <% errors.array().forEach(error => { %>
+         <% if (error.msg !== "Invalid value") { %>
+            <li><%= error.msg %></li>
+         <% } %>
+      <% }) %>
+      </ul>
+   <% } %>
+
+   <form class="edit-review-form" action="/review/update" method="post">
+      <p>ALL FIELDS ARE REQUIRED.</p>
+      <label for="review_date">Review Date</label>
+      <input type="text" id="review_date" name="review_date" required readonly value="<%= locals.review_date %>">
+
+      <label for="review_text">Review Text</label>
+      <input type="text" id="review-text" name="review_text" required value="<%= locals.review_text %>">
+
+      <button type="submit">Update</button>
+
+      <input type="hidden" name="review_id" value="<%= review_id %>">
+      <input type="hidden" name="inv_id" value="<%= inv_id %>">
+      <input type="hidden" name="account_id" value="<%= account_id %>">
+   </form>
+
+<% } else {
+   res.redirect('/')
+} %>

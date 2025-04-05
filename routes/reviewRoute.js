@@ -11,8 +11,14 @@ router.post(
 // Route to delete review
 router.get("/delete/:review_id", 
    utilities.handleErrors(reviewController.buildReviewDelete))
-
 router.post("/delete", 
    utilities.handleErrors(reviewController.deleteReview))
+
+
+// Routes to update review
+router.get("/edit/:review_id", 
+   utilities.handleErrors(reviewController.buildReviewUpdate));
+router.post("/update/", 
+   utilities.handleErrors(reviewController.updateReview));
 
 module.exports = router;
