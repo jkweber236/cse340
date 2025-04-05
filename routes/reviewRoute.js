@@ -12,9 +12,7 @@ router.post(
 router.get("/delete/:review_id", 
    utilities.handleErrors(reviewController.buildReviewDelete))
 
-router.post("/delete/", 
+router.post("/delete", 
    utilities.handleErrors(reviewController.deleteReview))
-
-   router.get("/account", utilities.handleErrors(reviewController.getUserReviews));
 
 module.exports = router;

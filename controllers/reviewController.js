@@ -1,5 +1,6 @@
 const utilities = require("../utilities/")
 const reviewModel = require("../models/review-model")
+const invModel = require('../models/inventory-model')
 
 const reviewCont = {}
 
@@ -28,19 +29,24 @@ reviewCont.buildReviewDelete = async function (req, res, next) {
    const review_id = parseInt(req.params.review_id)
    let nav = await utilities.getNav()
    const review = await reviewModel.getReviewById(review_id)
-   const reviewData = review[0]
+   const reviewData = Array.isArray(review) ? review[0] : review;
    const inv_id = reviewData.inv_id;
    const account_id = reviewData.account_id;
    const carDetails = await invModel.getCarDetailsById(inv_id);
    const carData = carDetails[0];
    const carTitle = `${carData.inv_year} ${carData.inv_make} ${carData.inv_model}`;
-   // const itemName = `${reviewData.review_id} ${reviewData.review_model}`
+   const review_date = new Date(reviewData.review_date);
+   const formattedDate = new Intl.DateTimeFormat('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: '2-digit'
+   }).format(review_date);
    res.render("./review/delete-confirm", {
       title: `Delete ${carTitle} Review`,
       nav,
       errors: null,
       review_text: reviewData.review_text,  
-      review_date: reviewData.review_date,  
+      review_date: formattedDate,  
       inv_id: reviewData.inv_id,  
       review_id: reviewData.review_id,
       account_id: account_id
@@ -49,32 +55,16 @@ reviewCont.buildReviewDelete = async function (req, res, next) {
 
 reviewCont.deleteReview = async function(req, res, next) {
    let nav = await utilities.getNav()
-   const review_id = parseInt(req.body.review_id)
+   const review_id = req.body.review_id;
 
-   const {
-      review_text,
-      review_date,
-      inv_id,
-      account_id,
-   } = req.body
-
-   const deleteResult = await reviewModel.deleteReview( review_id )
+   const deleteResult = await reviewModel.deleteReview(review_id)
 
    if (deleteResult) {
       req.flash("success", `Your review was successfully deleted.`)
       res.redirect("/account/")
    } else {
-      // const classificationSelect = await utilities.buildClassificationList(classification_id)
-      // const itemName = `${inv_make} ${inv_model}`
       req.flash("notice", "Review deletion failed.")
-      res.status(501).render("review/delete-confirm", {
-      // title: "Delete " + itemName,
-      title: "Delete fill in the blank",
-      nav,
-      // classificationSelect: classificationSelect,
-      errors: null,
-      review_id,
-      })
+      res.status(500).redirect("/account/")
    }
 }
 
