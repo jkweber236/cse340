@@ -5,9 +5,9 @@ const invModel = require('../models/inventory-model')
 const reviewCont = {}
 
 reviewCont.writeReview = async function(req, res, next) {
-   const { review, inv_id, account_id } = req.body
+   const { review_text, inv_id, account_id } = req.body
    try {
-      const result = await reviewModel.addReview(review, inv_id, account_id)
+      const result = await reviewModel.addReview(review_text, inv_id, account_id)
 
       if (result) {
          req.flash("success", "Your review was successfully posted.")

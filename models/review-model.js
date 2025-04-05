@@ -8,9 +8,12 @@ async function addReview(review_text, inv_id, account_id) {
          RETURNING *;`
 
          const values = [review_text, inv_id, account_id];
+         console.log("review_text:", review_text);
+         console.log("inv_id:", inv_id);
+         console.log("account_id:", account_id);
          return await pool.query(query, values);
    } catch (error) {
-      console.error("addReview error " + error)
+      console.error("addReview" + error)
    }
 }
 
