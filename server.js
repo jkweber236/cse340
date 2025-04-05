@@ -14,6 +14,7 @@ const utilities = require("./utilities/index")
 const baseController = require("./controllers/baseController")
 const inventoryRoute = require("./routes/inventoryRoute")
 const accountRoute = require("./routes/accountRoute")
+const reviewRoute = require("./routes/reviewRoute")
 const errorRoute = require('./routes/errorRoute');
 const session = require("express-session")
 const pool = require('./database/')
@@ -68,6 +69,9 @@ app.use("/inv", inventoryRoute)
 
 // Account route
 app.use("/account", accountRoute)
+
+// Review route
+app.use("/review", reviewRoute)
 
 // Error routes
 app.use("/", errorRoute);

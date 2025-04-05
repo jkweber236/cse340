@@ -109,6 +109,65 @@ Util.buildClassificationList = async function (classification_id = null) {
     return classificationList
   }
 
+Util.buildReviewsList = async function(data) {
+  let reviews = "";
+  if (data.length > 0) {
+    reviews += "<ul>";
+    data.forEach(review => {
+      const firstInitial = review.account_firstname ? review.account_firstname.charAt(0) : "";
+      const lastName = review.account_lastname ? review.account_lastname.replace(/\s+/g, '') : "";
+      const screenName = firstInitial + lastName;
+
+      const reviewDate = new Date(review.review_date).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric"
+      });
+      reviews += "<li>";
+      reviews += `<p class="review-label"><strong>${screenName}</strong> wrote on ${reviewDate}</p>`;
+      reviews += `<p class="review-text">${review.review_text}</p>`;
+      reviews += "</li>";
+    });
+    reviews += "</ul>";
+  } else {
+    reviews += `<p class="review-notice">Be the first to write a review.</p>`
+  }
+  return reviews;
+};
+
+Util.buildUserReviews = async function(data) {
+
+  let reviews = "";
+  const reviewList = Array.isArray(data) ? data : [];
+
+  if (reviewList.length > 0) {
+    reviews += "<ul>";
+    reviewList.forEach((review, index) => {
+      const year = review.inv_year;
+      const make = review.inv_make;
+      const model = review.inv_model;
+      const reviewDate = new Date(review.review_date).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric"
+      });
+      reviews += "<li>";
+      reviews += `<p>${index + 1}. Reviewed the ${year} ${make} ${model} on ${reviewDate}</p>`;
+      reviews += `
+        <div class="review-links">
+          <a href="/review/edit/${review.review_id}">Edit</a> |
+          <a href="/review/delete/${review.review_id}">Delete</a>
+        </div>
+      `;
+      reviews += "</li>";
+    });
+    reviews += "</ul>";
+  } else {
+    reviews += `<p class="review-notice">You have not written any reviews yet.</p>`;
+  }
+  return reviews;
+};
+
 /* ****************************************
  * Middleware For Handling Errors
  * Wrap other function in this for 

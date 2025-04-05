@@ -1,7 +1,38 @@
-<% if (title) { %>
-      <%# messages() %>
-      <%- details %>
-   <% } else {
-      res.redirect('/')
+<% if (title) { %> 
+   <%# messages() %> 
+   <%- details %> <% 
+} else {
+   res.redirect('/') 
 } %>
 
+<div class="vehicle-reviews">
+   <h3>Customer Reviews</h3>
+   <%- reviewsList %>
+   <% if (locals.accountData) { %>
+      <h3>Add Your Own Review</h3>
+      <form class="review-form" action="/review/write-review" method="post">
+         <label for="screen-name">Screen Name:</label><br />
+         <input
+            type="text"
+            id="screen-name"
+            name="screen-name"
+            required
+            value="<%= locals.accountData.account_firstname.charAt(0) + locals.accountData.account_lastname.replace(/\s+/g, '') %>"
+            readonly/><br/>
+
+         <label for="review">Review:</label><br/>
+         <textarea id="review" name="review" required></textarea><br/>
+
+         <input type="hidden" name="inv_id" value="<%= inv_id %>"/>
+         <input
+            type="hidden"
+            name="account_id"
+            value="<%= accountData.account_id %>"
+         />
+
+         <button type="submit">Submit Review</button>
+      </form>
+   <% } else { %>
+   <p>You must <a href="/account/login">login</a> to write a review.</p>
+   <% } %>
+</div>
