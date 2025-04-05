@@ -155,7 +155,7 @@ Util.buildUserReviews = async function(data) {
       reviews += `<p>${index + 1}. Reviewed the ${year} ${make} ${model} on ${reviewDate}</p>`;
       reviews += `
         <div class="review-links">
-          <a href="/review/edit/${review.review_id}">Edit</a> |
+          | <a href="/review/edit/${review.review_id}">Edit</a> |
           <a href="/review/delete/${review.review_id}">Delete</a>
         </div>
       `;

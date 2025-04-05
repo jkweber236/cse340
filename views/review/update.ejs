@@ -1,5 +1,5 @@
 <% if (title) { %>
-   <h1><%= title %></h1>
+   <h1 id="edit-review-title"><%= title %></h1>
 
    <%- messages() %>
 
@@ -15,17 +15,19 @@
 
    <form class="edit-review-form" action="/review/update" method="post">
       <p>ALL FIELDS ARE REQUIRED.</p>
-      <label for="review_date">Review Date</label>
-      <input type="text" id="review_date" name="review_date" required readonly value="<%= locals.review_date %>">
+      <div class="form-content">
+         <label for="review_date">Review Date</label></br>
+         <input type="text" id="review_date" name="review_date" required readonly value="<%= locals.review_date %>"></br>
 
-      <label for="review_text">Review Text</label>
-      <input type="text" id="review-text" name="review_text" required minlength="10" value="<%= locals.review_text %>">
+         <label for="review_text">Review Text</label></br>
+         <textarea id="review_text" name="review_text" required minlength="10"><%= locals.review_text %></textarea></br>
 
-      <button type="submit">Update</button>
+         <button type="submit">Update</button>
 
-      <input type="hidden" name="review_id" value="<%= review_id %>">
-      <input type="hidden" name="inv_id" value="<%= inv_id %>">
-      <input type="hidden" name="account_id" value="<%= account_id %>">
+         <input type="hidden" name="review_id" value="<%= review_id %>">
+         <input type="hidden" name="inv_id" value="<%= inv_id %>">
+         <input type="hidden" name="account_id" value="<%= account_id %>">
+      </div>
    </form>
 
 <% } else {

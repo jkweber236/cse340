@@ -280,15 +280,15 @@ input:required:invalid, input:focus:invalid, textarea:required:invalid, select:r
   background-color: #f4ddad;
 }
 
-div.vehicle-reviews textarea:required {
+div.vehicle-reviews textarea:required, textarea#review_text:valid:required {
   background-color: white;
 }
 
-div.vehicle-reviews textarea:focus  {
+div.vehicle-reviews textarea:focus, textarea#review_text:focus {
   background-color: #f4ddad; 
 }
 
-div.vehicle-reviews textarea:focus:valid {
+div.vehicle-reviews textarea:focus:valid, textarea#review_text:focus:valid {
   background-color: lightgreen;
 }
 
@@ -366,7 +366,7 @@ h1.classification, h1.inventory {
 }
 
 div.vehicle-reviews input {
-  width: 250px;
+  width: 275px;
 }
 
 .review-label {
@@ -384,6 +384,62 @@ div.vehicle-reviews textarea {
 
 .vehicle-reviews ul {
   margin-top: 0;
+  margin-bottom: 0;
+}
+
+.account-management ul li {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  margin-top: 0;
+}
+
+.account-management li p {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.review-form {
+  border: 1px solid black;
+  padding: 1rem;
+}
+
+.edit-review-form, .delete-review-form {
+  background-color: #0492C3;
+  min-width: 300px;
+  max-width: 500px;
+  padding: 1rem;
+  border-radius: 5px 5px;
+  margin: auto;
+}
+
+.edit-review-form input, 
+.delete-review-form input, 
+.edit-review-form textarea, 
+.delete-review-form textarea {
+  margin-bottom: 8px;
+}
+
+textarea#review_text, textarea#delete_review_text {
+  width: 98%;
+  height: 85px;
+}
+
+.form-content {
+  border: 1px solid white;
+  padding: 1rem;
+}
+
+#edit-review-title {
+  font-size: 1.75rem;
+}
+
+input#review_date:read-only, .delete-review-form input:read-only, .delete-review-form textarea:read-only {
+  background-color: #9ad3e6;
+}
+
+.delete-review-form p {
+  font-weight: bold;
 }
 
 @media (min-width: 800px) { 
@@ -545,7 +601,14 @@ div.vehicle-reviews textarea {
   }
 
   div.vehicle-reviews textarea {
-    min-width: 400px;
-    height: 75px;
+    min-width: 450px;
+    height: 85px;
+    margin-bottom: 8px;
+  }
+
+  .edit-review-form, .delete-review-form {
+    grid-column: 1/3;
+    min-width: 500px;
+    max-width: 800px;
   }
 }
