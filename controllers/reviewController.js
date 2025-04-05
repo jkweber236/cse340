@@ -9,7 +9,7 @@ reviewCont.writeReview = async function(req, res, next) {
       const result = await reviewModel.addReview(review, inv_id, account_id)
 
       if (result) {
-         req.flash("notice", "Your review was successfully posted.")
+         req.flash("success", "Your review was successfully posted.")
          res.redirect(`/inv/detail/${inv_id}`)
       } else {
          req.flash("error", "Unable to post review. Please try again.")
@@ -61,7 +61,7 @@ reviewCont.deleteReview = async function(req, res, next) {
    const deleteResult = await reviewModel.deleteReview( review_id )
 
    if (deleteResult) {
-      req.flash("notice", `Your review was successfully deleted.`)
+      req.flash("success", `Your review was successfully deleted.`)
       res.redirect("/account/")
    } else {
       // const classificationSelect = await utilities.buildClassificationList(classification_id)

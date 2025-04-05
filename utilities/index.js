@@ -163,7 +163,7 @@ Util.buildUserReviews = async function(data) {
     });
     reviews += "</ul>";
   } else {
-    reviews += `<p class="review-notice">You have not written any reviews yet.</p>`;
+    reviews += `<p>You have not written any reviews yet.</p>`;
   }
   return reviews;
 };

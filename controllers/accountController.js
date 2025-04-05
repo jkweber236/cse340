@@ -161,6 +161,9 @@ async function updateAccount(req, res) {
       account_id
    )
 
+   let reviews = await reviewModel.getReviewsByAccountId(account_id); 
+   let userReviews = await utilities.buildUserReviews(reviews);
+
    if (updateResult) {
       res.locals.accountData = {
          ...res.locals.accountData,
@@ -175,6 +178,7 @@ async function updateAccount(req, res) {
       res.status(200).render("account/management", {
          title: "Account Management",
          nav,
+         userReviews,
          errors: null,
       })
    } else {
@@ -208,6 +212,9 @@ async function changePassword(req, res) {
       account_id
    )
 
+   let reviews = await reviewModel.getReviewsByAccountId(account_id); 
+   let userReviews = await utilities.buildUserReviews(reviews);
+
    if (updateResult) {
       res.locals.accountData = {
          ...res.locals.accountData,
@@ -220,6 +227,7 @@ async function changePassword(req, res) {
       res.status(200).render("account/management", {
          title: "Account Management",
          nav,
+         userReviews,
          errors: null,
       })
    } else {
