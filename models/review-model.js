@@ -67,7 +67,8 @@ async function getReviewsByAccountId(account_id) {
          i.inv_make, i.inv_model, i.inv_year
          FROM public.review AS r
          JOIN public.inventory AS i ON r.inv_id = i.inv_id
-         WHERE r.account_id = $1`,
+         WHERE r.account_id = $1
+         ORDER BY r.review_date DESC`,
          [account_id]
       );
       return data.rows;
